@@ -1,5 +1,6 @@
 from ..models import db
 from ..models.AllUserModel import AllUser
+from .authuser import auth_token
 import json
 
 
@@ -45,11 +46,12 @@ def login_user(credentials):
     for result in results:
         if result['email'] == username:
             if result['password'] == password:
+                user_id = result['id']
                 flag=1
                 break
 
     if(flag==1):
-        return ({'error':False,'message':'login successful'})
+        return auth_token(user_id)
     else:
         return ({'error':False,'message':'login failed'})
     
