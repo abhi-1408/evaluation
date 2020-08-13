@@ -1,0 +1,11 @@
+#t1 {
+    color:red;
+    font-size: 32px;
+}
+  
+@media (max-width: 320px) and (max-width: 480px) {
+body {
+    background-color: rgb(53, 51, 51);
+}
+}
+  
