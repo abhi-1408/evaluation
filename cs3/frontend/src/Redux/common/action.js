@@ -105,3 +105,27 @@ export const Create_Book = info => {
 
 
 
+export const Update_Book = info => {
+    return dispatch => {
+        return axios({
+            method: "post",
+
+
+            url: "http://127.0.0.1:5000/book/updatebook",
+
+            data: info
+        })
+            .then((res) => res.data)
+            .then((data) => {
+                dispatch(Get_All_Books({ 'page_size': 2, 'page': 1 }))
+
+            })
+            .catch((err) => {
+                console.log(err)
+
+            })
+    }
+}
+
+
+
