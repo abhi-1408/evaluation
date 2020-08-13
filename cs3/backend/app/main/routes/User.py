@@ -4,7 +4,7 @@ import json
 import time
 import jwt
 from ..services.alluser import login_user,register_user
-from ..services.book import create_new_book
+from ..services.book import create_new_book,update_book,delete_book
 from ..services.category import create_new_category
 
 
@@ -31,13 +31,6 @@ def u_register():
 
     return json.dumps(res)
 
-
-@user.route('/createbook',methods = ['POST'])
-def u_create_book():
-    data = request.json
-    res = create_new_book(data)
-
-    return json.dumps(res)
 
 @user.route('/createcat',methods = ['POST'])
 def u_create_cat():

@@ -4,6 +4,7 @@ from config import app_config
 from flask_migrate import Migrate
 from .models import *
 from .routes import user as user_blueprint
+from .routes import book as book_blueprint
 from flask_sqlalchemy import SQLAlchemy
 from flask import Blueprint
 
@@ -16,6 +17,7 @@ def create_app(config_name):
 
 
     app.register_blueprint(user_blueprint,url_prefix='/user')
+    app.register_blueprint(book_blueprint,url_prefix='/book')
     db.init_app(app)
     migrate=Migrate(app,db)
 
