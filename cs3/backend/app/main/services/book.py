@@ -69,8 +69,8 @@ def update_book(data):
 
 
 def get_all_books(page_size = 2,page = 1):
-    page_size = 2
-    page = 1
+    # page_size = 2
+    # page = 1
     all_books = Book.query.offset(page_size*(page-1)).limit(page_size).all()
     # all_books.limit(page_size)
     # all_books.offset(page*page_size)

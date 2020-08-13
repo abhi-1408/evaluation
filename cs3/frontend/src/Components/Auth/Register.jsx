@@ -1,4 +1,8 @@
 import React, { useEffect } from 'react'
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Register_User } from '../../Redux/register/action'
+import { Redirect, useHistory } from 'react-router-dom'
 
 
 
@@ -17,7 +21,7 @@ export const Register = (props) => {
         registered_flag } = register
 
     const handleRegister = () => {
-        dispatch(Register_User({ 'name': name, 'email': email, 'password': password, 'phone': phone, 'role': role }))
+        dispatch(Register_User({ 'name': name, 'email': username, 'password': password, 'phone': phone, 'role': role }))
     }
 
     if (registered_flag) {

@@ -29,7 +29,7 @@ export const Register_User = (info) => {
         })
             .then((res) => res.data)
             .then((data) => {
-                dispatch(Update_Loggedin_User(data))
+                dispatch(Update_Registered(data))
             })
             .catch((err) => {
                 console.log(err)
