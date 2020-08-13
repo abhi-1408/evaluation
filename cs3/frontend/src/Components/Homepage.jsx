@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import styles from '../css/Homepage.module.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { Get_All_Books, Get_Filtered_Books } from '../Redux/common/action'
+import { Get_All_Books, Get_Filtered_Books, Delete_books } from '../Redux/common/action'
 import { useRef } from 'react'
 import { useState } from 'react'
 import { Link, BrowserRouter, Switch, Route } from 'react-router-dom'
@@ -62,12 +62,16 @@ export const Homepage = (props) => {
     const handledelete = (e) => {
         // props.history.push('/edit/5')
         console.log('del clicked', e.target.name, logged_in_user_id)
+        dispatch(Delete_books({ 'user_id': logged_in_user_id, 'book_id': parseInt(e.target.name) }))
     }
 
     const handleEdit = (e) => {
         props.history.push(e.target.name)
     }
 
+    const handleCreate = () => {
+        props.history.push('/create')
+    }
 
     useEffect(() => {
         dispatch(Get_All_Books({ 'page_size': 2, 'page': page }))
@@ -77,9 +81,12 @@ export const Homepage = (props) => {
             <div>
                 <button className="btn mx-2" onClick={handleSortP}>SORT BY PRICE</button>
                 <button className="btn" onClick={handleSortQ}>SORT BY QUANTITY</button>
+                <button className="btn" onClick={handleCreate}>CREATE BOOK</button>
 
-                <div id={styles.t1} >hello homepage</div>
-                <div id={styles.t1} >page is {page}</div>
+
+                {/* <div id={styles.t1} >hello homepage</div>
+                <div id={styles.t1} >page is {page}</div> */}
+                <br></br>
             BOOKS ARE:
             <table class="table">
                     <thead class="thead-dark">
