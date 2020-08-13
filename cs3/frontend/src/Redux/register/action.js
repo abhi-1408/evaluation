@@ -1,29 +1,35 @@
 import axios from "axios"
-import { Reset_Registered_Flag } from '../register/action'
 
-export const Update_Loggedin_User = (data) => {
+export const Update_Registered = (data) => {
     return {
-        type: "UPDATE_LOGGEDIN_USER",
+        type: "UPDATE_USER_REGISTERED",
         payload: data
     }
 }
 
 
+export const Reset_Registered_Flag = (data) => {
+    return {
+        type: "RESET_FLAG",
 
-export const Login_User = (info) => {
+    }
+}
+
+
+
+export const Register_User = (info) => {
     return dispatch => {
         return axios({
             method: "post",
 
 
-            url: "http://127.0.0.1:5000/user/login",
+            url: "http://127.0.0.1:5000/user/register",
 
             data: info
         })
             .then((res) => res.data)
             .then((data) => {
                 dispatch(Update_Loggedin_User(data))
-                dispatch(Reset_Registered_Flag())
             })
             .catch((err) => {
                 console.log(err)

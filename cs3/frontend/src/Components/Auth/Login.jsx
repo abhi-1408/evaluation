@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Login_User, Logout_User } from '../../Redux/login/action'
-
+import { Redirect, useHistory } from 'react-router-dom'
 
 export const Login = (props) => {
 
@@ -24,6 +24,14 @@ export const Login = (props) => {
         dispatch(Logout_User())
     }
 
+    let history = useHistory()
+
+    if (logged_in_flag) {
+        console.log(props)
+        props.history.push('/homepage')
+        // history.location.push('/homepage')
+    }
+
     return (
         <div className="container">
             <div>login homepage</div>
@@ -39,10 +47,10 @@ export const Login = (props) => {
             </div>
 
             <button type="submit" class="btn btn-primary" onClick={handleLogin}>Submit</button>
-            <button type="submit" class="btn btn-primary" onClick={handleLogout}>Logout</button>
+            <button type="submit" class="btn btn-danger" onClick={handleLogout} >Logout</button>
 
 
-            values : {logged_in_flag ? 'true' : 'false'}  user_id{logged_in_user_id}
+            {/* values : {logged_in_flag ? 'true' : 'false'}  user_id{logged_in_user_id} */}
 
 
 
