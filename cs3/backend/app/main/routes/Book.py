@@ -3,7 +3,7 @@ from flask import request
 import json
 import time
 import jwt
-from ..services.book import create_new_book,update_book,delete_book
+from ..services.book import create_new_book,update_book,delete_book,get_all_books,get_filtered_books
 
 
 
@@ -31,5 +31,22 @@ def b_del_book():
 def b_upd_book():
     data = request.json
     res = update_book(data)
+
+    return json.dumps(res)
+
+
+@book.route('/getallbooks',methods = ['GET'])
+def b_get_all_book():
+    
+    res = get_all_books()
+
+    return json.dumps(res)
+
+
+
+@book.route('/getfilteredbooks',methods = ['POST'])
+def b_get_filter_book():
+    data = request.json
+    res = get_filtered_books(data)
 
     return json.dumps(res)

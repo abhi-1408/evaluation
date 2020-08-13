@@ -1,6 +1,7 @@
 from ..models import db
 from ..models.BookModel import Book
 import json
+from sqlalchemy import desc
 
 
 def create_new_book(data):
@@ -65,3 +66,121 @@ def update_book(data):
     db.session.commit()
 
     return {'error':False, 'message':"book updated"}
+
+
+def get_all_books():
+
+    all_books = Book.query.all()
+    data = []
+    for book in all_books:
+        temp_dict = {}
+        temp_dict['book_id'] = book.id
+        temp_dict['user_id'] = book.user_id
+        temp_dict['cat_id'] = book.cat_id
+        temp_dict['title'] = book.title
+        temp_dict['price'] = book.price
+        temp_dict['quantity'] = book.quantity
+        temp_dict['author'] = book.author
+        temp_dict['isDeleted'] = book.isDeleted
+        temp_dict['description'] = book.description
+        data.append(temp_dict)
+
+    return data
+
+
+
+def get_filtered_books(data):
+
+    if 'sort_by' in data:
+        msg = data['sort_by'][0]
+        val =data['sort_by'][1]
+        if msg == "price":
+            if val == 'desc':
+                all_books = Book.query.order_by(desc(Book.price)).all()
+                data = []
+                for book in all_books:
+                    temp_dict = {}
+                    temp_dict['book_id'] = book.id
+                    temp_dict['user_id'] = book.user_id
+                    temp_dict['cat_id'] = book.cat_id
+                    temp_dict['title'] = book.title
+                    temp_dict['price'] = book.price
+                    temp_dict['quantity'] = book.quantity
+                    temp_dict['author'] = book.author
+                    temp_dict['isDeleted'] = book.isDeleted
+                    temp_dict['description'] = book.description
+                    data.append(temp_dict)
+
+                return data
+            else:
+                all_books = Book.query.order_by((Book.price)).all()
+                data = []
+                for book in all_books:
+                    temp_dict = {}
+                    temp_dict['book_id'] = book.id
+                    temp_dict['user_id'] = book.user_id
+                    temp_dict['cat_id'] = book.cat_id
+                    temp_dict['title'] = book.title
+                    temp_dict['price'] = book.price
+                    temp_dict['quantity'] = book.quantity
+                    temp_dict['author'] = book.author
+                    temp_dict['isDeleted'] = book.isDeleted
+                    temp_dict['description'] = book.description
+                    data.append(temp_dict)
+
+                return data
+        elif msg == "quantity":
+            if val == 'desc':
+                all_books = Book.query.order_by(desc(Book.quantity)).all()
+                data = []
+                for book in all_books:
+                    temp_dict = {}
+                    temp_dict['book_id'] = book.id
+                    temp_dict['user_id'] = book.user_id
+                    temp_dict['cat_id'] = book.cat_id
+                    temp_dict['title'] = book.title
+                    temp_dict['price'] = book.price
+                    temp_dict['quantity'] = book.quantity
+                    temp_dict['author'] = book.author
+                    temp_dict['isDeleted'] = book.isDeleted
+                    temp_dict['description'] = book.description
+                    data.append(temp_dict)
+
+                return data
+            else:
+                all_books = Book.query.order_by(Book.quantity).all()
+                data = []
+                for book in all_books:
+                    temp_dict = {}
+                    temp_dict['book_id'] = book.id
+                    temp_dict['user_id'] = book.user_id
+                    temp_dict['cat_id'] = book.cat_id
+                    temp_dict['title'] = book.title
+                    temp_dict['price'] = book.price
+                    temp_dict['quantity'] = book.quantity
+                    temp_dict['author'] = book.author
+                    temp_dict['isDeleted'] = book.isDeleted
+                    temp_dict['description'] = book.description
+                    data.append(temp_dict)
+
+                return data
+    elif 'author' in data:
+        msg = data['author'][0]
+        val = data['author'][1]
+        all_books = Book.query.filter(Book.author.like(val)).all()
+        data = []
+        for book in all_books:
+            temp_dict = {}
+            temp_dict['book_id'] = book.id
+            temp_dict['user_id'] = book.user_id
+            temp_dict['cat_id'] = book.cat_id
+            temp_dict['title'] = book.title
+            temp_dict['price'] = book.price
+            temp_dict['quantity'] = book.quantity
+            temp_dict['author'] = book.author
+            temp_dict['isDeleted'] = book.isDeleted
+            temp_dict['description'] = book.description
+            data.append(temp_dict)
+
+        return data
+
