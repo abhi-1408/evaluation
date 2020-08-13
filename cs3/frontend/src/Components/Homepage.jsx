@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import styles from '../css/Homepage.module.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { Get_All_Books, Get_Filtered_Books, Delete_books } from '../Redux/common/action'
+import { Get_All_Books, Get_Filtered_Books, Delete_books, Book_Search } from '../Redux/common/action'
 import { useRef } from 'react'
 import { useState } from 'react'
 import { Link, BrowserRouter, Switch, Route } from 'react-router-dom'
@@ -73,6 +73,19 @@ export const Homepage = (props) => {
         props.history.push('/create')
     }
 
+    const [search, setSearch] = useState('')
+
+    const handleSearch = () => {
+        // console.log('search is ', search)
+        if (search == '') {
+            dispatch(Get_All_Books({ page_size: 2, page: 1 }))
+        }
+        else {
+
+            dispatch(Book_Search({ 'author': ['hi', search], page_size: 2, page: 1 }))
+        }
+    }
+
     useEffect(() => {
         dispatch(Get_All_Books({ 'page_size': 2, 'page': page }))
     }, [])
@@ -87,6 +100,11 @@ export const Homepage = (props) => {
                 {/* <div id={styles.t1} >hello homepage</div>
                 <div id={styles.t1} >page is {page}</div> */}
                 <br></br>
+                <div class="form-group">
+                    <label >Price</label>
+                    <input type="text" class="form-control" name="search" onChange={(e) => setSearch(e.target.value)} placeholder="search by author name" />
+                    <button className="btn" name="next" onClick={handleSearch}>search</button>
+                </div>
             BOOKS ARE:
             <table class="table">
                     <thead class="thead-dark">
@@ -114,8 +132,16 @@ export const Homepage = (props) => {
                                     <td>{ele.author}</td>
                                     <td>{ele.price}</td>
                                     <td>{ele.quantity}</td>
-                                    <td><button name={`/edit/${ele.book_id}`} onClick={(e) => handleEdit(e)}>edit</button></td>
-                                    <td> <button className="btn" name={ele.book_id} onClick={(e) => handledelete(e)}>delete</button></td>
+                                    {(ele.user_id == logged_in_user_id) ?
+                                        <td><button name={`/edit/${ele.book_id}`} onClick={(e) => handleEdit(e)}>edit</button></td>
+                                        :
+                                        <td><button name={`/edit/${ele.book_id}`} onClick={(e) => handleEdit(e)} disabled>edit</button></td>
+                                    }
+                                    {(ele.user_id == logged_in_user_id) ?
+                                        <td> <button className="btn" name={ele.book_id} onClick={(e) => handledelete(e)}>delete</button></td>
+                                        :
+                                        <td> <button className="btn" name={ele.book_id} onClick={(e) => handledelete(e)} disabled>delete</button></td>
+                                    }
                                 </tr>
                             )
                         }
