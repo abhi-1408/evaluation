@@ -7,6 +7,7 @@ import { Navbar } from '../Components/Navbar'
 import { Link } from 'react-router-dom'
 import { EditBook } from '../Components/EditBook'
 import { CreateBook } from '../Components/CreateBook'
+import { Description } from '../Components/Description'
 
 
 export const Routes = (props) => {
@@ -42,6 +43,7 @@ export const Routes = (props) => {
                     {/* <Route path='/edit/:id' exact render={(props) => <EditBook {...props} />} />
                     <Route path='/del/:id' exact render={(props) => <DeleteBook {...props} />} /> */}
                     <Route path='/edit/:id' exact render={(props) => <EditBook {...props} />} />
+                    <Route path='/desc/:id' exact render={(props) => <Description {...props} />} />
                     <Route path='/create/' exact render={(props) => <CreateBook {...props} />} />
                 </Switch>
             </BrowserRouter>

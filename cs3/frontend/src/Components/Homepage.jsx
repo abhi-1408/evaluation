@@ -69,6 +69,10 @@ export const Homepage = (props) => {
         props.history.push(e.target.name)
     }
 
+    const handleDesc = (e) => {
+        props.history.push(e.target.name)
+    }
+
     const handleCreate = () => {
         props.history.push('/create')
     }
@@ -126,7 +130,7 @@ export const Homepage = (props) => {
                             return (
 
                                 <tr>
-                                    <th scope="row">{ele.book_id}</th>
+                                    <th scope="row"> <button name={`/desc/${ele.book_id}`} onClick={(e) => handleDesc(e)}>{ele.book_id}</button></th>
                                     <td>{ele.cat_id}</td>
                                     <td>{ele.title}</td>
                                     <td>{ele.author}</td>
