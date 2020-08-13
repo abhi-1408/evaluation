@@ -71,7 +71,7 @@ def update_book(data):
 def get_all_books(page_size = 2,page = 1):
     # page_size = 2
     # page = 1
-    all_books = Book.query.offset(page_size*(page-1)).limit(page_size).all()
+    all_books = Book.query.filter(Book.isDeleted == 0).offset(page_size*(page-1)).limit(page_size).all()
     # all_books.limit(page_size)
     # all_books.offset(page*page_size)
     # all_books.all()
@@ -100,7 +100,7 @@ def get_filtered_books(data,page_size = 2,page = 1):
         val =data['sort_by'][1]
         if msg == "price":
             if val == 'desc':
-                all_books = Book.query.order_by(desc(Book.price)).offset(page_size*(page-1)).limit(page_size).all()
+                all_books = Book.query.filter(Book.isDeleted == 0).order_by(desc(Book.price)).offset(page_size*(page-1)).limit(page_size).all()
                 data = []
                 for book in all_books:
                     temp_dict = {}
@@ -117,7 +117,7 @@ def get_filtered_books(data,page_size = 2,page = 1):
 
                 return data
             else:
-                all_books = Book.query.order_by((Book.price)).offset(page_size*(page-1)).limit(page_size).all()
+                all_books = Book.query.filter(Book.isDeleted == 0).order_by((Book.price)).offset(page_size*(page-1)).limit(page_size).all()
                 data = []
                 for book in all_books:
                     temp_dict = {}
@@ -135,7 +135,7 @@ def get_filtered_books(data,page_size = 2,page = 1):
                 return data
         elif msg == "quantity":
             if val == 'desc':
-                all_books = Book.query.order_by(desc(Book.quantity)).offset(page_size*(page-1)).limit(page_size).all()
+                all_books = Book.query.filter(Book.isDeleted == 0).order_by(desc(Book.quantity)).offset(page_size*(page-1)).limit(page_size).all()
                 data = []
                 for book in all_books:
                     temp_dict = {}
@@ -152,7 +152,7 @@ def get_filtered_books(data,page_size = 2,page = 1):
 
                 return data
             else:
-                all_books = Book.query.order_by(Book.quantity).offset(page_size*(page-1)).limit(page_size).all()
+                all_books = Book.query.filter(Book.isDeleted == 0).order_by(Book.quantity).offset(page_size*(page-1)).limit(page_size).all()
                 data = []
                 for book in all_books:
                     temp_dict = {}
@@ -171,7 +171,7 @@ def get_filtered_books(data,page_size = 2,page = 1):
     elif 'author' in data:
         msg = data['author'][0]
         val = data['author'][1]
-        all_books = Book.query.filter(Book.author.like(val)).offset(page_size*(page-1)).limit(page_size).all()
+        all_books = Book.query.filter(Book.isDeleted == 0).filter(Book.author.like(val)).offset(page_size*(page-1)).limit(page_size).all()
         data = []
         for book in all_books:
             temp_dict = {}

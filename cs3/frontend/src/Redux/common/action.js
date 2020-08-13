@@ -33,3 +33,27 @@ export const Get_All_Books = (info) => {
 }
 
 
+
+export const Get_Filtered_Books = (info) => {
+    return dispatch => {
+        return axios({
+            method: "post",
+
+
+            url: "http://127.0.0.1:5000/book/getfilteredbooks",
+
+            data: info
+        })
+            .then((res) => res.data)
+            .then((data) => {
+                dispatch(Update_Book_List(data))
+
+            })
+            .catch((err) => {
+                console.log(err)
+
+            })
+    }
+}
+
+
