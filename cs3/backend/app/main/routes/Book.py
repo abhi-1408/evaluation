@@ -35,10 +35,10 @@ def b_upd_book():
     return json.dumps(res)
 
 
-@book.route('/getallbooks',methods = ['GET'])
+@book.route('/getallbooks',methods = ['POST'])
 def b_get_all_book():
-    
-    res = get_all_books()
+    data = request.json
+    res = get_all_books(data['page_size'],data['page'])
 
     return json.dumps(res)
 
@@ -47,6 +47,6 @@ def b_get_all_book():
 @book.route('/getfilteredbooks',methods = ['POST'])
 def b_get_filter_book():
     data = request.json
-    res = get_filtered_books(data)
+    res = get_filtered_books(data,data['page_size'],data['page'])
 
     return json.dumps(res)
